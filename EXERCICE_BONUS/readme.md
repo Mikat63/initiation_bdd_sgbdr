@@ -3,7 +3,12 @@
 ## Exercice 1 : Obtenir l’utilisateur ayant le prénom “Muriel” et le mot de passe “test11”, sachant que l’encodage du mot de passe est effectué avec l’algorithme Sha1.
 
 ```sql
-
+    SELECT 
+        *
+    FROM 
+        client
+    WHERE 
+        client.password = SHA1("test11");
 ```
 
 ## Exercice 2 : Obtenir la liste de tous les produits qui sont présent sur plusieurs commandes.
