@@ -44,15 +44,34 @@
 ## Exercice 4 : Enregistrer le prix total à l’intérieur de chaque ligne des commandes, en fonction du prix unitaire et de la quantité
 
 ```sql
-UPDATE
-	commande_ligne
+UPDATE 
+	commande_ligne 
         SET prix_total = commande_ligne.quantite * commande_ligne.prix_unitaire;
 ```
 
 ## Exercice 5 : Obtenir le montant total pour chaque commande et y voir facilement la date associée à cette commande ainsi que le prénom et nom du client associé
 
 ```sql
-
+    SELECT 
+        c.reference Reference,
+        c.date_achat Date_achat,
+        ROUND(SUM(cl.prix_total),2) Prix_total, 
+        cli.nom Nom,
+        cli.prenom Prenom
+    FROM
+        commande c 
+    JOIN
+        commande_ligne cl 
+            ON cl.commande_id = c.id 
+    JOIN client cli 
+            ON c.client_id = cli.id 
+    group BY
+        c.reference,
+        c.date_achat,
+        cli.nom,
+        cli.prenom 
+    ORDER BY
+        c.date_achat DESC
 ```
 
 ## Exercice 6 : (difficulté très haute) Enregistrer le montant total de chaque commande dans le champ intitulé “cache_prix_total”
