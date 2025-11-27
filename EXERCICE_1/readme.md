@@ -160,5 +160,10 @@
 ## Exercice 11 : Remplacez les tirets par un espace vide, pour toutes les villes commençant par “SAINT-” (dans la colonne qui contient les noms en majuscule)
 
 ```sql
-
+    SELECT 
+        REPLACE(villes_france_free.ville_nom,"-"," ")
+    FROM 
+        villes_france_free
+    WHERE 
+        villes_france_free.ville_nom LIKE 'SAINT%';
 ```
