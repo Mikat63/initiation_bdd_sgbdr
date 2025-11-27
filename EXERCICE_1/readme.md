@@ -111,12 +111,12 @@
 ## Exercice 8 : Obtenir la liste des villes qui ont un nom existants plusieurs fois, et trier afin d’obtenir en premier celles dont le n est le plus souvent utilisé par plusieurs communes
 
 ```sql
-    SELECT 
+    SELECT
         villes_france_free.ville_nom Ville,
         count(*) nbre_communes
     FROM
         villes_france_free
-    GROUP BY 
+    GROUP BY
         villes_france_free.ville_nom
     ORDER BY
         count(*) DESC;
@@ -125,13 +125,36 @@
 ## Exercice 9 : Obtenir en une seule requête SQL la liste des villes dont la superficie est supérieur à la superficie moyenne
 
 ```sql
-
+    SELECT
+        villes_france_free.ville_nom Ville,
+        villes_france_free.ville_surface Superficie
+    FROM
+        villes_france_free
+    WHERE
+        villes_france_free.ville_surface > (SELECT
+                                                AVG(villes_france_free.ville_surface)
+                                            FROM
+                                                villes_france_free
+                                            );
 ```
 
 ## Exercice 10 : Obtenir la liste des départements qui possèdent plus de 2 millions d’habitants
 
 ```sql
-
+    SELECT
+        d.departement_nom Departement,
+        SUM(v.ville_population_2012) Population
+    FROM
+        departement d
+    JOIN
+        villes_france_free v
+            ON d.departement_code = v.ville_departement
+    GROUP BY
+        d.departement_nom
+    HAVING
+         SUM(v.ville_population_2012) > 2000000
+    ORDER BY
+         SUM(v.ville_population_2012) DESC;
 ```
 
 ## Exercice 11 : Remplacez les tirets par un espace vide, pour toutes les villes commençant par “SAINT-” (dans la colonne qui contient les noms en majuscule)
