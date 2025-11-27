@@ -10,7 +10,7 @@
 	    villes_france_free
     ORDER BY
         ville_population_2012 DESC
-    limit 
+    limit
         10;
 ```
 
@@ -52,11 +52,12 @@
     FROM
 	    villes_france_free v
     JOIN
-        departement d 
+        departement d
             ON v.ville_departement = d.departement_code
     ORDER BY
         ville_population_2012 DESC
-    limit 10;
+    limit
+        10;
 ```
 
 ## Exercice 5 : Obtenir la liste du nom de chaque département, associé à son code et du nombre de commune au sein de ces département, en triant afin d’obtenir en priorité les départements qui possèdent le plus de communes
@@ -79,13 +80,32 @@
 ## Exercice 6 : Obtenir la liste des 10 plus grands départements, en terme de superficie
 
 ```sql
-
+    SELECT
+        d.departement_nom,
+        COUNT(v.ville_surface) Superficie
+    FROM
+        villes_france_free v
+    JOIN
+        departement d
+            ON d.departement_code = ville_departement
+    GROUP BY
+        d.departement_nom;
 ```
 
 ## Exercice 7 : Compter le nombre de villes dont le nom commence par “Saint”
 
 ```sql
-
+    SELECT
+        d.departement_nom Departement,
+        round(SUM(v.ville_surface),2) Superficie
+    FROM
+        villes_france_free v
+    JOIN departement d
+        ON d.departement_code = ville_departement
+    GROUP BY
+        d.departement_nom
+    ORDER BY
+         round(SUM(v.ville_surface),2) DESC;
 ```
 
 ## Exercice 8 : Obtenir la liste des villes qui ont un nom existants plusieurs fois, et trier afin d’obtenir en premier celles dont le n est le plus souvent utilisé par plusieurs communes
