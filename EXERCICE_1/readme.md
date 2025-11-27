@@ -111,7 +111,15 @@
 ## Exercice 8 : Obtenir la liste des villes qui ont un nom existants plusieurs fois, et trier afin d’obtenir en premier celles dont le n est le plus souvent utilisé par plusieurs communes
 
 ```sql
-
+    SELECT 
+        villes_france_free.ville_nom Ville,
+        count(*) nbre_communes
+    FROM
+        villes_france_free
+    GROUP BY 
+        villes_france_free.ville_nom
+    ORDER BY
+        count(*) DESC;
 ```
 
 ## Exercice 9 : Obtenir en une seule requête SQL la liste des villes dont la superficie est supérieur à la superficie moyenne
