@@ -3,11 +3,11 @@
 ## Exercice 1 : Obtenir l’utilisateur ayant le prénom “Muriel” et le mot de passe “test11”, sachant que l’encodage du mot de passe est effectué avec l’algorithme Sha1.
 
 ```sql
-    SELECT 
+    SELECT
         *
-    FROM 
+    FROM
         client
-    WHERE 
+    WHERE
         client.password = SHA1("test11");
 ```
 
@@ -15,25 +15,38 @@
 
 ```sql
     SELECT
-        commande_ligne.nom
-    FROM	
+        commande_ligne.nom Produit
+    FROM
         commande_ligne
-    GROUP BY 
+    GROUP BY
         commande_ligne.nom
-    HAVING 
+    HAVING
         count(commande_ligne.nom) > 1;
 ```
 
 ## Exercice 3 : Obtenir la liste de tous les produits qui sont présent sur plusieurs commandes et y ajouter une colonne qui liste les identifiants des commandes associées.
 
 ```sql
-
+    SELECT
+        GROUP_CONCAT(cl.commande_id) Identifiant_commande,
+        cl.nom Produit
+    FROM
+        commande_ligne cl
+    JOIN
+        commande c
+            ON c.id = cl.commande_id
+    GROUP BY
+        cl.nom
+    HAVING
+        count(cl.nom) > 1;
 ```
 
 ## Exercice 4 : Enregistrer le prix total à l’intérieur de chaque ligne des commandes, en fonction du prix unitaire et de la quantité
 
 ```sql
-
+UPDATE
+	commande_ligne
+        SET prix_total = commande_ligne.quantite * commande_ligne.prix_unitaire;
 ```
 
 ## Exercice 5 : Obtenir le montant total pour chaque commande et y voir facilement la date associée à cette commande ainsi que le prénom et nom du client associé
