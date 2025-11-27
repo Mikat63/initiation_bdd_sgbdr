@@ -4,8 +4,8 @@
 
 ```sql
     SELECT
-	    ville_nom,
-        ville_population_2012
+	    ville_nom Ville,
+        ville_population_2012 Population_2012
     FROM
 	    villes_france_free
     ORDER BY
@@ -17,8 +17,8 @@
 
 ```sql
     SELECT
-        ville_nom,
-        ville_surface
+        ville_nom Ville,
+        ville_surface Superficie
     FROM
         villes_france_free
     ORDER BY
@@ -30,8 +30,8 @@
 
 ```sql
     SELECT
-        departement_nom,
-        departement_code
+        departement_nom Departement,
+        departement_code Code
     FROM
         departement
     WHERE departement_code >= 97
@@ -41,7 +41,16 @@
 ## Exercice 4 : Obtenir le nom des 10 villes les plus peuplées en 2012, ainsi que le nom du département associé
 
 ```sql
-
+     SELECT
+	    ville_nom Ville,
+        ville_population_2012 Population_2012,
+        d.departement_nom Département
+    FROM
+	    villes_france_free v
+    JOIN departement d ON v.ville_departement = d.departement_code
+    ORDER BY
+        ville_population_2012 DESC
+    limit 10;
 ```
 
 ## Exercice 5 : Obtenir la liste du nom de chaque département, associé à son code et du nombre de commune au sein de ces département, en triant afin d’obtenir en priorité les départements qui possèdent le plus de communes
