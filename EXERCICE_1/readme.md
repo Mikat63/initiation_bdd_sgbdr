@@ -10,7 +10,8 @@
 	    villes_france_free
     ORDER BY
         ville_population_2012 DESC
-    limit 10;
+    limit 
+        10;
 ```
 
 ## Exercice 2 : Obtenir la liste des 50 villes ayant la plus faible superficie
@@ -23,7 +24,8 @@
         villes_france_free
     ORDER BY
         ville_surface ASC
-    limit 50;
+    limit
+        50;
 ```
 
 ## Exercice 3 : Obtenir la liste des départements d’outres-mer, c’est-à-dire ceux dont le numéro de département commencent par “97”
@@ -34,8 +36,10 @@
         departement_code Code
     FROM
         departement
-    WHERE departement_code >= 97
-    ORDER BY departement_nom ASC;
+    WHERE
+        departement_code >= 97
+    ORDER BY
+        departement_nom ASC;
 ```
 
 ## Exercice 4 : Obtenir le nom des 10 villes les plus peuplées en 2012, ainsi que le nom du département associé
@@ -47,7 +51,9 @@
         d.departement_nom Département
     FROM
 	    villes_france_free v
-    JOIN departement d ON v.ville_departement = d.departement_code
+    JOIN
+        departement d 
+            ON v.ville_departement = d.departement_code
     ORDER BY
         ville_population_2012 DESC
     limit 10;
@@ -56,7 +62,18 @@
 ## Exercice 5 : Obtenir la liste du nom de chaque département, associé à son code et du nombre de commune au sein de ces département, en triant afin d’obtenir en priorité les départements qui possèdent le plus de communes
 
 ```sql
-
+    SELECT
+        d.departement_code,
+        d.departement_nom,
+        count(v.ville_departement)
+    FROM
+        departement d
+    JOIN
+        villes_france_free v
+            ON d.departement_code = v.ville_departement
+    GROUP BY
+        d.departement_code,
+        d.departement_nom;
 ```
 
 ## Exercice 6 : Obtenir la liste des 10 plus grands départements, en terme de superficie
